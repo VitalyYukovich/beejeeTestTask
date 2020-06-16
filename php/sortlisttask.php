@@ -1,11 +1,11 @@
 <?php
+session_start();
 $captionColumnSorted = $_GET['captionColumnSorted'];
 $arrColumn = [
 	'captionName' => 'user_name',
 	'captionEmail' => 'user_email',
 	'captionStatus' => 'task_status',
 ];
-session_start();
 
 if ($_SESSION['columnSorted'] == $arrColumn[$captionColumnSorted]) {
 	if ($_SESSION['ruleSorted'] == 'ASC' || !isset($_SESSION['ruleSorted'])) {

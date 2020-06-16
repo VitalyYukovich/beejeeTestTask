@@ -6,10 +6,12 @@ $(document).ready(function() {
 			method: 'POST',
 			data: $(this).serialize(),
 			success: function(data){
-				if(data==1){
-					document.location.href="../index.php"
-				}else{
-					$('#message').html(data);
+				let dataParse = jQuery.parseJSON(data);
+				if(dataParse.result=='success'){
+					document.location.href="../index.html";
+				}
+				if(dataParse.result == 'error'){
+					$('#message').html(dataParse.message);
 				}
 			}
 		})

@@ -1,0 +1,17 @@
+
+table{
+	width: 100%;
+}
+th, td.taskStatus{
+	text-align: center;
+}
+td.taskDetail{
+	word-break: break-all;
+}
+nav{
+	display: flex;
+	justify-content: center;
+}
+.pencil, .taskStatus, #captionName, #captionEmail, #captionStatus{
+	cursor: pointer;
+}

@@ -1,20 +1,18 @@
 <?
 include 'database_connection.php';
+include 'function.php';
 
-$columnSorted = isset($_SESSION['columnSorted'])? $_SESSION['columnSorted']:'task_id';
-$ruleSorted = isset($_SESSION['ruleSorted'])? $_SESSION['ruleSorted']:'DESC';
+$countOfPage =  $_GET['countOfPage'];
+$numberPage = $_GET['numberPage'];
 
-$countOnPage = 3;
-$numPage = $_GET['numPage'];
-$query = "
-	SELECT * FROM task_list
-	ORDER BY " . $columnSorted . " " . $ruleSorted;
+if(isset($_SESSION['columnSorted']) && isset($_SESSION['ruleSorted']))
+	$result = getlist($connect, $_SESSION['columnSorted'], $_SESSION['ruleSorted']);
+else
+	$result = getlist($connect);
 
-$statement = $connect->prepare($query);
-$statement->execute();
-$result = $statement->fetchAll();
-$response['countPage'] = ceil(count($result)/$countOnPage);
-$response['listTask'] = array_reverse(array_slice($result, $countOnPage*($numPage-1), $countOnPage));
+if($result == null)
+	$response['listTask'] = array();
+else
+	$response['listTask'] = array_slice($result, $countOfPage*($numberPage-1), $countOfPage, TRUE);
 echo json_encode($response);
-
 ?>

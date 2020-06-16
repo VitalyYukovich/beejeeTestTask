@@ -1,12 +1,18 @@
 <?php
+session_start();
 if ($_POST['login'] && $_POST['password']) {
 	if (!strcmp($_POST['login'], 'admin') && !strcmp($_POST['password'], '123')) {
+		$_SESSION['auth'] = true;
 		$_SESSION['user_id'] = 1;
-		echo $_SESSION['user_id'];
+		echo json_encode(array('result' => 'success', 'message' => 'Вы успешно авторизировались!'));
+		exit;
 	} else {
-		echo 'Неверные реквезиты доступа';
+		$messageError = 'Неверные реквезиты доступа.';
 	}
+
 } else {
-	echo 'Поля обязательны для заполнения';
+	$messageError = 'Все поля обязательны для заполнения.';
 }
+
+echo json_encode(array('result' => 'error', 'message' => $messageError));
 ?>

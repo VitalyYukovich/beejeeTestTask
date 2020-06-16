@@ -3,9 +3,9 @@ include 'database_connection.php';
 
 if ($_POST['user_name'] && $_POST['user_email'] && $_POST['task_detail']) {
 	$data = [
-		':user_name' => trim($_POST['user_name']),
-		':user_email' => trim($_POST['user_email']),
-		':task_detail' => trim($_POST['task_detail']),
+		':user_name' => htmlspecialchars(trim($_POST['user_name'])),
+		':user_email' => htmlspecialchars(trim($_POST['user_email'])),
+		':task_detail' => htmlspecialchars(trim($_POST['task_detail'])),
 	];
 
 	$query = 'INSERT INTO task_list
